@@ -336,7 +336,7 @@ class FlexibleAnalyzer(ModelAnalyzer):
     
     def analyze_all_layers(
         self,
-        prompt_len,
+        prompt_len=[1024, 1024, 1024],
         num_heads=[8, 12, 24],
         batchsize=1,
         w_bit=16,
@@ -347,8 +347,8 @@ class FlexibleAnalyzer(ModelAnalyzer):
         tp_size: int = 1
     ):
         results = []
-        for curr_num_heads in num_heads:
-            results.append(self.analyze_one_layer(prompt_len, 
+        for curr_prompt_len, curr_num_heads in zip(prompt_len, num_heads):
+            results.append(self.analyze_one_layer(curr_prompt_len, 
                                                   curr_num_heads, 
                                                   batchsize,
                                                   w_bit,
