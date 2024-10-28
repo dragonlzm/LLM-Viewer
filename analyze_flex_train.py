@@ -35,8 +35,8 @@ analyzer = FlexibleAnalyzer(args.model_id, args.hardware, args.config_file,sourc
 number_of_layer_of_model = analyzer.config.get_num_hidden_layers(analyzer.model_params)
 num_attention_heads = analyzer.config.get_num_attention_heads(analyzer.model_params)
 
-ipdb.set_trace()
-results = analyzer.analyze_allq_layers(
+# ipdb.set_trace()
+results = analyzer.analyze_all_layers(
     prompt_len=[args.promptlen]*number_of_layer_of_model,
     num_heads=[num_attention_heads]*number_of_layer_of_model,
     batchsize=args.batchsize,

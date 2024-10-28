@@ -87,6 +87,7 @@ python3 analyze_flex.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --co
 # calculate the data for the training
 python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --promptlen 1024
 
-# calculate the data for the training
 python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --promptlen 2048
+
+python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 2048
 ```
