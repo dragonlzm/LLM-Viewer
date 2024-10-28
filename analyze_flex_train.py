@@ -4,6 +4,7 @@ import numpy as np
 import os
 import importlib
 import argparse
+import ipdb
 
 parser = argparse.ArgumentParser()
 parser.add_argument("model_id", type=str, help="model id")
@@ -30,9 +31,14 @@ parser.add_argument(
 args = parser.parse_args()
 
 analyzer = FlexibleAnalyzer(args.model_id, args.hardware, args.config_file,source=args.source)
-results = analyzer.analyze_all_layers(
-    prompt_len=[args.promptlen]*32,
-    num_heads=[32]*32,
+
+number_of_layer_of_model = analyzer.config.get_num_hidden_layers(analyzer.model_params)
+num_attention_heads = analyzer.config.get_num_attention_heads(analyzer.model_params)
+
+ipdb.set_trace()
+results = analyzer.analyze_allq_layers(
+    prompt_len=[args.promptlen]*number_of_layer_of_model,
+    num_heads=[num_attention_heads]*number_of_layer_of_model,
     batchsize=args.batchsize,
     w_bit=args.w_bit,
     a_bit=args.a_bit,
