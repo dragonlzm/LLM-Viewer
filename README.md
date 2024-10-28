@@ -81,11 +81,12 @@ python3 analyze_cli.py meta-llama/Llama-2-13b-hf nvidia_A6000 --batchsize 1 --se
 
 python3 analyze_flex.py facebook/opt-125m nvidia_A6000
 
-
+# calculate the data for the inference
 python3 analyze_flex.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --seqlen 2048
 
-
+# calculate the data for the training
 python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --promptlen 1024
 
+# calculate the data for the training
 python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --promptlen 2048
 ```
