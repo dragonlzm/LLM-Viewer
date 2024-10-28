@@ -30,9 +30,8 @@ parser.add_argument(
 args = parser.parse_args()
 
 analyzer = FlexibleAnalyzer(args.model_id, args.hardware, args.config_file,source=args.source)
-results = analyzer.analyze_generate_task(
+results = analyzer.analyze_all_layers(
     prompt_len=args.promptlen,
-    gen_len=args.seqlen,
     num_heads=[32]*32,
     batchsize=args.batchsize,
     w_bit=args.w_bit,

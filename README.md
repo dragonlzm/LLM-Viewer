@@ -73,3 +73,19 @@ If you are using LLM-Viewer in your research, please cite our paper:
       primaryClass={cs.CL}
 }
 ```
+
+## How to use this script to eval the llava-onevision
+```
+
+python3 analyze_cli.py meta-llama/Llama-2-13b-hf nvidia_A6000 --batchsize 1 --seqlen 8192
+
+python3 analyze_flex.py facebook/opt-125m nvidia_A6000
+
+
+python3 analyze_flex.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --seqlen 2048
+
+
+python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --promptlen 1024
+
+python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --promptlen 2048
+```
