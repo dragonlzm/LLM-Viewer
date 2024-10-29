@@ -84,12 +84,12 @@ python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A600
 python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 2048
 ```
 
-# How to read the number from the result 
+##  How to read the number from the result 
 The sample of the result output is as following:
 {'decode': {'OPs': 1031776256, 'memory_access': 1020557824.0, 'load_weight': 987922432.0, 'load_act': 3546880.0, 'store_act': 3910400.0, 'load_kv_cache': 25165824.0, 'store_kv_cache': 12288.0, 'inference_time': 0.0006563072823151125, 'memory_consumption': 740969216.0, 'memory_consumption_tmp_act': 150272.0, 'memory_consumption_weight': 715653120.0, 'memory_consumption_kv_cache': 25165824.0}, 
 
 'prefill': {'OPs': 1834410131456, 'memory_access': 15609571840.0, 'load_weight': 987922432.0, 'load_act': 7184844544.0, 'store_act': 7386473216.0, 'load_kv_cache': 25165824.0, 'store_kv_cache': 25165824.0, 'inference_time': 0.012891532104373953, 'memory_consumption': 1048576000.0, 'memory_consumption_tmp_act': 307757056.0, 'memory_consumption_weight': 715653120.0, 'memory_consumption_kv_cache': 25165824.0}}
 
 The results consist of two parts: the 'decode' section and the 'prefill' section.
-the 'decode' section is calculate the resource need for each step like interactive forward. While the 'prefill' will get the resource needed for parallel forward.
+the 'decode' section is calculate the resource need for each step like iteractive forward. While the 'prefill' will get the resource needed for parallel forward.
 We should use the result from 'decode' section.
