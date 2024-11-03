@@ -79,12 +79,15 @@ If you are using LLM-Viewer in your research, please cite our paper:
 # To calculate the prefill only
 python3 analyze_flex_prefill_only.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 1024
 
+python3 analyze_flex_prefill_only.py lmsys/vicuna-7b-v1.5 nvidia_A100 --config_file configs/Llama.py  --promptlen 616
+
+# To calculate the prefill with different token numbers at different layers
+python3 analyze_flex_prefill_only.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 1024,1024,1024,1024,512,512,512,512,256,256,256,256,128,128,128,128,64,64,64,64,32,32,32,32
 
 # To calculate the prefill and the decode
+python3 analyze_flex.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 1024,1024,1024,1024,512,512,512,512,256,256,256,256,128,128,128,128,64,64,64,64,32,32,32,32 --seqlen 10
 
-
-
-# some other example
+# Other examples
 python3 analyze_cli.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file configs/Llama.py --seqlen 616
 
 python3 analyze_flex_train.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file configs/Llama.py --promptlen 616
@@ -95,8 +98,6 @@ python3 analyze_flex_train.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file con
 
 
 # calculate the data for the training
-
-
 python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --promptlen 2048
 
 python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 2048

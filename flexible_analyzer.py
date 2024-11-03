@@ -7,6 +7,8 @@ from transformers import AutoTokenizer, AutoConfig, AutoModelForCausalLM
 from utils import str_number, str_number_time
 from model_analyzer import ModelAnalyzer
 import math
+import numpy as np
+import ipdb
 
 ALL_DATA_NAMES = [
     "OPs",
@@ -426,8 +428,11 @@ class FlexibleAnalyzer(ModelAnalyzer):
         prefill_flops = flops = prefill_result["prefill"]["OPs"]
         prefill_memory_consumption = memory_consumption = prefill_result["prefill"]["memory_consumption"]
 
-        for i in range(prompt_len, prompt_len + gen_len):
-            result = self.analyze_all_layers(i, num_heads, batchsize, w_bit, a_bit, kv_bit, use_flashattention=use_flashattention, tp_size=tp_size)
+        prompt_len = np.array(prompt_len)
+        ipdb.set_trace()
+        for gen_len in range(0, gen_len):
+            curr_prompt_len = prompt_len + gen_len
+            result = self.analyze_all_layers(curr_prompt_len, num_heads, batchsize, w_bit, a_bit, kv_bit, use_flashattention=use_flashattention, tp_size=tp_size)
             inference_time += result["decode"]["inference_time"]
             flops += result["decode"]["OPs"]
             memory_consumption += result["decode"]["memory_consumption"]

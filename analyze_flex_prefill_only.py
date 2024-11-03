@@ -33,10 +33,8 @@ analyzer = FlexibleAnalyzer(args.model_id, args.hardware, args.config_file,sourc
 
 number_of_layer_of_model = analyzer.config.get_num_hidden_layers(analyzer.model_params)
 num_attention_heads = analyzer.config.get_num_attention_heads(analyzer.model_params)
-
-ipdb.set_trace()
+# ipdb.set_trace()
 promptlen = int(args.promptlen) if ',' not in args.promptlen else [int(ele) for ele in args.promptlen.split(',')]
-
 if isinstance(promptlen, int):
     promptlen = [promptlen]*number_of_layer_of_model
 elif isinstance(promptlen, list):
