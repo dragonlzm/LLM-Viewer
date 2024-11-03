@@ -76,12 +76,32 @@ If you are using LLM-Viewer in your research, please cite our paper:
 
 ## How to use this script to eval the llava-onevision
 ```
+# To calculate the prefill only
+python3 analyze_flex_prefill_only.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 1024
+
+
+# To calculate the prefill and the decode
+
+
+
+# some other example
+python3 analyze_cli.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file configs/Llama.py --seqlen 616
+
+python3 analyze_flex_train.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file configs/Llama.py --promptlen 616
+
+python3 analyze_gen_cli.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file configs/Llama.py --promptlen 616 --seqlen 1
+
+python3 analyze_flex_train.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file configs/Llama.py --promptlen 576 --seqlen 40
+
+
 # calculate the data for the training
-python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --promptlen 1024
+
 
 python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A6000 --config_file configs/Llama.py --promptlen 2048
 
 python3 analyze_flex_train.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 2048
+
+
 ```
 
 ##  How to read the number from the result 
@@ -91,5 +111,4 @@ The sample of the result output is as following:
 'prefill': {'OPs': 1834410131456, 'memory_access': 15609571840.0, 'load_weight': 987922432.0, 'load_act': 7184844544.0, 'store_act': 7386473216.0, 'load_kv_cache': 25165824.0, 'store_kv_cache': 25165824.0, 'inference_time': 0.012891532104373953, 'memory_consumption': 1048576000.0, 'memory_consumption_tmp_act': 307757056.0, 'memory_consumption_weight': 715653120.0, 'memory_consumption_kv_cache': 25165824.0}}
 
 The results consist of two parts: the 'decode' section and the 'prefill' section.
-the 'decode' section is calculate the resource need for each step like iteractive forward. While the 'prefill' will get the resource needed for parallel forward.
-We should use the result from 'decode' section.
+the 'decode' section is calculate the resource need for decoding one token after prefiling stage. While the 'prefill' calculate the flop in the prefiling stage. Usually, the existing model will use the 
