@@ -15,7 +15,7 @@ parser.add_argument(
 parser.add_argument("--config_file", type=str, default=None, help="config file")
 parser.add_argument("--batchsize", type=int, default=1, help="batch size")
 parser.add_argument("--seqlen", type=int, default=1024, help="sequence length, token LLM generate")
-parser.add_argument("--promptlen", type=int, default=128, help="prompt sequence length")
+parser.add_argument("--promptlen", type=str, default=128, help="prompt sequence length")
 parser.add_argument("--w_bit", type=int, default=16, help="weight bitwidth")
 parser.add_argument("--a_bit", type=int, default=16, help="temporary activation bitwidth")
 parser.add_argument("--kv_bit", type=int, default=16, help="kv cache bitwidth")

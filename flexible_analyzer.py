@@ -429,7 +429,7 @@ class FlexibleAnalyzer(ModelAnalyzer):
         prefill_memory_consumption = memory_consumption = prefill_result["prefill"]["memory_consumption"]
 
         prompt_len = np.array(prompt_len)
-        ipdb.set_trace()
+        # ipdb.set_trace()
         for gen_len in range(0, gen_len):
             curr_prompt_len = prompt_len + gen_len
             result = self.analyze_all_layers(curr_prompt_len, num_heads, batchsize, w_bit, a_bit, kv_bit, use_flashattention=use_flashattention, tp_size=tp_size)
