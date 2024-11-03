@@ -83,10 +83,8 @@ python3 analyze_flex_prefill_only.py lmsys/vicuna-7b-v1.5 nvidia_A100 --config_f
 
 
 
-
 # To calculate the prefill with different token numbers at different layers
 python3 analyze_flex_prefill_only.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 1024,1024,1024,1024,512,512,512,512,256,256,256,256,128,128,128,128,64,64,64,64,32,32,32,32
-
 
 
 
@@ -95,12 +93,10 @@ python3 analyze_flex.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --con
 
 
 
-# Other examples
+# Other examples about using the LLM-Viewer original calculation
 python3 analyze_cli.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file configs/Llama.py --seqlen 616
 
 python3 analyze_gen_cli.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file configs/Llama.py --promptlen 616 --seqlen 1
-
-python3 analyze_flex_train.py lmsys/vicuna-7b-v1.5 nvidia_V100 --config_file configs/Llama.py --promptlen 576 --seqlen 40
 ```
 
 ##  How to read the number from the result 
@@ -110,4 +106,4 @@ The sample of the result output is as following:
 'prefill': {'OPs': 1834410131456, 'memory_access': 15609571840.0, 'load_weight': 987922432.0, 'load_act': 7184844544.0, 'store_act': 7386473216.0, 'load_kv_cache': 25165824.0, 'store_kv_cache': 25165824.0, 'inference_time': 0.012891532104373953, 'memory_consumption': 1048576000.0, 'memory_consumption_tmp_act': 307757056.0, 'memory_consumption_weight': 715653120.0, 'memory_consumption_kv_cache': 25165824.0}}
 
 The results consist of two parts: the 'decode' section and the 'prefill' section.
-the 'decode' section is calculate the resource need for decoding one token after prefiling stage. While the 'prefill' calculate the flop in the prefiling stage. Usually, the existing model will use the 
+the 'decode' section is calculate the resource need for decoding one token after prefiling stage. While the 'prefill' calculate the flop in the prefiling stage. The existing model will use the 'prefill' number.
