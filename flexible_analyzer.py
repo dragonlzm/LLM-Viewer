@@ -381,7 +381,7 @@ class FlexibleAnalyzer(ModelAnalyzer):
         for stage in ["decode", "prefill"]:
             for layer_results in results:
                 for layer_name, result in layer_results[stage].items():
-                    ipdb.set_trace() # check the name
+                    # ipdb.set_trace() # check the name
                     if skip_mlp_bias and "mlp_add" in layer_name:
                         continue
                     for data_name in ALL_DATA_NAMES:
@@ -391,6 +391,8 @@ class FlexibleAnalyzer(ModelAnalyzer):
         weight_kv_footprint = total_results["prefill"]["load_weight"] + total_results["prefill"]["store_kv_cache"]
         decode_tmp_act = 0
         for layer_name, result in results[-1]["decode"].items():
+            if skip_mlp_bias and "mlp_add" in layer_name:
+                continue
             decode_tmp_act += result["store_act"]
         total_results["decode"]["memory_consumption"] = decode_tmp_act + weight_kv_footprint
         total_results["decode"]["memory_consumption_tmp_act"] = decode_tmp_act
@@ -398,6 +400,8 @@ class FlexibleAnalyzer(ModelAnalyzer):
         total_results["decode"]["memory_consumption_kv_cache"] = total_results["prefill"]["store_kv_cache"]
         prefill_tmp_act = 0
         for layer_name, result in results[-1]["prefill"].items():
+            if skip_mlp_bias and "mlp_add" in layer_name:
+                continue
             prefill_tmp_act += result["store_act"]
         total_results["prefill"]["memory_consumption"] = prefill_tmp_act + weight_kv_footprint
         total_results["prefill"]["memory_consumption_tmp_act"] = prefill_tmp_act
@@ -428,7 +432,8 @@ class FlexibleAnalyzer(ModelAnalyzer):
         a_bit=16,
         kv_bit=None,
         use_flashattention = False,
-        tp_size: int = 1
+        tp_size: int = 1,
+        skip_mlp_bias=False,
     ):
         prefill_result = self.analyze_all_layers(
             prompt_len,
@@ -448,7 +453,10 @@ class FlexibleAnalyzer(ModelAnalyzer):
         # ipdb.set_trace()
         for gen_len in range(0, gen_len):
             curr_prompt_len = prompt_len + gen_len
-            result = self.analyze_all_layers(curr_prompt_len, num_heads, batchsize, w_bit, a_bit, kv_bit, use_flashattention=use_flashattention, tp_size=tp_size)
+            result = self.analyze_all_layers(curr_prompt_len, num_heads, batchsize, w_bit, a_bit, kv_bit, 
+                                             use_flashattention=use_flashattention, 
+                                             tp_size=tp_size,
+                                             skip_mlp_bias=skip_mlp_bias)
             inference_time += result["decode"]["inference_time"]
             flops += result["decode"]["OPs"]
             memory_consumption += result["decode"]["memory_consumption"]
