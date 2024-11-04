@@ -333,6 +333,18 @@ class FlexibleAnalyzer(ModelAnalyzer):
                 load_kv_cache=0,
                 store_kv_cache=0,
             )
+        # for name in ["mlp_act"]:
+        #     self._analyze_to_results(
+        #         "prefill",
+        #         name,
+        #         OPs=batchsize * intermediate_size // tp_size* seqlen * 1 * 4,
+        #         load_weight=0,
+        #         load_act=batchsize * intermediate_size // tp_size * seqlen * a_byte * 2,
+        #         store_act=batchsize * intermediate_size // tp_size * seqlen * a_byte,
+        #         load_kv_cache=0,
+        #         store_kv_cache=0,
+        #     )            
+            
 
         return self.results
     
@@ -346,7 +358,8 @@ class FlexibleAnalyzer(ModelAnalyzer):
         kv_bit=None,
         use_flashattention=False,
         kv_token_ratio=1,
-        tp_size: int = 1
+        tp_size: int = 1,
+        skip_mlp_bias=False,
     ):
         results = []
         for curr_prompt_len, curr_num_heads in zip(prompt_len, num_heads):
@@ -368,6 +381,9 @@ class FlexibleAnalyzer(ModelAnalyzer):
         for stage in ["decode", "prefill"]:
             for layer_results in results:
                 for layer_name, result in layer_results[stage].items():
+                    ipdb.set_trace() # check the name
+                    if skip_mlp_bias and "mlp_add" in layer_name:
+                        continue
                     for data_name in ALL_DATA_NAMES:
                         total_results[stage][data_name] += result[data_name]
 

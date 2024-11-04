@@ -21,6 +21,8 @@ parser.add_argument("--a_bit", type=int, default=16, help="temporary activation 
 parser.add_argument("--kv_bit", type=int, default=16, help="kv cache bitwidth")
 parser.add_argument("--use_flashattention", action="store_true", help="use flash attention")
 parser.add_argument("--source", dest="source",  type=str, default="huggingface", help="use flash attention")
+parser.add_argument("--skip-mlp-bias", dest="skip_mlp_bias", action="store_true", help="if we using te ")
+
 parser.add_argument(
     "--tp-size",
     type=int,
@@ -50,6 +52,7 @@ results = analyzer.analyze_all_layers(
     a_bit=args.a_bit,
     kv_bit=args.kv_bit,
     use_flashattention=args.use_flashattention,
-    tp_size=args.tp_size
+    tp_size=args.tp_size,
+    skip_mlp_bias=args.skip_mlp_bias,
 )
 print(results)
