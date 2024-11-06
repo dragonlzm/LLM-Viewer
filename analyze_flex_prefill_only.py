@@ -55,4 +55,9 @@ results = analyzer.analyze_all_layers(
     tp_size=args.tp_size,
     skip_mlp_bias=args.skip_mlp_bias,
 )
-print(results)
+
+# standardize the output and the print
+
+print('Flops (TB): ', round(results['prefill']['OPs'] / 10**12, 4) , 
+      'inference_time (ms): ', round(results['prefill']['inference_time'] * 1000, 4),
+      'memory_consumption (GB): ', round(results['prefill']['memory_consumption'] / 10**9, 4))

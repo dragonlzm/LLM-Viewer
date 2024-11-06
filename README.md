@@ -76,15 +76,33 @@ If you are using LLM-Viewer in your research, please cite our paper:
 
 ## How to use this script to eval the llava-onevision
 ```
+# Scipt to calculate the prefill with different token numbers at different layers (Our Method)
+python3 analyze_flex_prefill_only.py lmms-lab/llava-onevision-qwen2-7b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 1024,1024,1024,1024,512,512,512,512,256,256,256,256,128,128,128,128,64,64,64,64,32,32,32,32
+
+python3 analyze_flex_prefill_only.py lmsys/vicuna-7b-v1.5 nvidia_A100 --config_file configs/Llama.py --promptlen 1024,1024,1024,1024,512,512,512,512,256,256,256,256,128,128,128,128,64,64,64,64,32,32,32,32
+
+
+# Scipt to calculate the prefill with different token numbers at different layers (LLaVA-PruMerge)
+python3 analyze_flex_prefill_only.py lmms-lab/llava-onevision-qwen2-7b-ov nvidia_A100 --config_file configs/Llama.py  --promptlen 616
+
+python3 analyze_flex_prefill_only.py lmsys/vicuna-7b-v1.5 nvidia_A100 --config_file configs/Llama.py  --promptlen 616
+
+
+
+
 # To calculate the prefill only
+python3 analyze_flex_prefill_only.py lmms-lab/llava-onevision-qwen2-7b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 1024 --skip-mlp-bias
+
 python3 analyze_flex_prefill_only.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 1024 --skip-mlp-bias
 
 python3 analyze_flex_prefill_only.py lmsys/vicuna-7b-v1.5 nvidia_A100 --config_file configs/Llama.py  --promptlen 616
 
 
 
+
 # To calculate the prefill with different token numbers at different layers
 python3 analyze_flex_prefill_only.py lmms-lab/llava-onevision-qwen2-0.5b-ov nvidia_A100 --config_file configs/Llama.py --promptlen 1024,1024,1024,1024,512,512,512,512,256,256,256,256,128,128,128,128,64,64,64,64,32,32,32,32
+
 
 
 
