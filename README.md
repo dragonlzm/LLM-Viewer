@@ -84,7 +84,7 @@ python3 analyze_flex_prefill_only.py lmsys/vicuna-7b-v1.5 nvidia_A100 --config_f
 
 
 
-# Scipt to calculate the prefill with different token numbers at different layers (LLaVA-PruMerge)
+# Scipt to calculate the prefill with same token numbers at different layers (LLaVA-PruMerge)
 python3 analyze_flex_prefill_only.py Qwen/Qwen2-7B nvidia_A100 --config_file configs/Llama.py  --promptlen 1024
 
 python3 analyze_flex_prefill_only.py lmsys/vicuna-7b-v1.5 nvidia_A100 --config_file configs/Llama.py  --promptlen 1024
